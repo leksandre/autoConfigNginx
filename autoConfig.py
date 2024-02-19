@@ -63,7 +63,7 @@ res = [str(x) for x in res.split('\n') if len(x) > 0]
 
 #rise error if script already work
 host = ""
-port = 1
+port = 10909
 backlog = 5
 size = 1024
 sock = socket(AF_INET, SOCK_STREAM)
@@ -251,9 +251,11 @@ def get_certificate(hostname, port):
         sock.connect((hostname, port))
     except TypeError as msg:
         print ("Type Error2: %s" % msg)
+        print('hostname, port',hostname, port)
         return 0
     except Exception as msg:
         print ("Type Error3: %s" % msg)
+        print('hostname, port',hostname, port)
         return 0
     peername = sock.getpeername()
     ctx = SSL.Context(SSL.SSLv23_METHOD) # most compatible
@@ -269,7 +271,8 @@ def get_certificate(hostname, port):
         sock_ssl.close()
         sock.close()
     except Exception as msg:
-        print ("Type Error3: %s" % msg)
+        print ("Type Error3_1: %s" % msg)
+        print('hostname, port',hostname, port)
         return 0
     return HostInfo(cert=crypto_cert, peername=peername, hostname=hostname)
 
